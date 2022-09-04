@@ -1,5 +1,7 @@
 package com.licenta.eventfields;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -11,22 +13,27 @@ public class EventFields {
     private Long id;
     private String title;
     private String description;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date beginDate;
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date endDate;
     private Long price;
+
+    private Long maxParticipants;
     private String picture;
 
 
     public EventFields() {
     }
 
-    public EventFields(String title, String description, Date beginDate, Date endDate, Long price, String picture) {
+    public EventFields(String title, String description, Date beginDate, Date endDate, Long price, String picture, Long maxParticipants) {
         this.title = title;
         this.description = description;
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.price = price;
         this.picture = picture;
+        this.maxParticipants = maxParticipants;
     }
 
     public Long getId() { return id; }
@@ -57,5 +64,11 @@ public class EventFields {
 
     public void setPicture(String picture) { this.picture = picture; }
 
+    public Long getMaxParticipants() {
+        return maxParticipants;
+    }
 
+    public void setMaxParticipants(Long maxParticipants) {
+        this.maxParticipants = maxParticipants;
+    }
 }

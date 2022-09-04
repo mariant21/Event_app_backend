@@ -13,13 +13,14 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/events")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class EventFieldsController {
 
     @Autowired
     private EventFieldsRepository   eventFieldsRepository;
     //get events
-    @GetMapping("event")
-    public List<EventFields>  getAllEvent(){
+    @GetMapping("/")
+    public List<EventFields>  getAllEvents(){
 
         return this.eventFieldsRepository.findAll();
     }
@@ -33,7 +34,7 @@ public class EventFieldsController {
     }
 
     //save event
-    @PostMapping("event")
+    @PostMapping("/addEvent")
     public EventFields createEvent(@RequestBody EventFields eventFields){
         return this.eventFieldsRepository.save(eventFields);
     }
@@ -50,6 +51,7 @@ public class EventFieldsController {
         eventFields.setEndDate(eventDetails.getEndDate());
         eventFields.setPrice(eventDetails.getPrice());
         eventFields.setPicture(eventDetails.getPicture());
+        eventFields.setMaxParticipants(eventDetails.getMaxParticipants());
 
         final EventFields updatedEvent = eventFieldsRepository.save(eventFields);
         return ResponseEntity.ok(updatedEvent);
