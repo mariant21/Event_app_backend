@@ -1,6 +1,7 @@
 package com.licenta.auth.models;
 
 
+import com.licenta.participations.Participation;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -41,6 +42,11 @@ public class User {
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
+
+	@OneToMany(mappedBy = "user",
+			fetch = FetchType.LAZY,
+			cascade=CascadeType.REMOVE)
+	Set<Participation> participations = new HashSet<>();
 
 	public User() {
 	}

@@ -1,9 +1,12 @@
 package com.licenta.eventfields;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.licenta.participations.Participation;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table (name= "event_fields")
@@ -13,16 +16,19 @@ public class EventFields {
     private Long id;
     private String title;
     private String description;
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date beginDate;
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date endDate;
     private Long price;
 
     private Long maxParticipants;
     private String picture;
 
-
+    @OneToMany(mappedBy = "event",
+            fetch = FetchType.LAZY,
+            cascade=CascadeType.REMOVE)
+    Set<Participation> participations = new HashSet<>();
     public EventFields() {
     }
 

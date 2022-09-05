@@ -58,7 +58,7 @@ public class EventFieldsController {
     }
 
     //delete event
-    @DeleteMapping("events/{id}")
+    @DeleteMapping("delete/{id}")
     public Map<String, Boolean> deleteEvents(@PathVariable(value = "id") Long eventId)
             throws ResourceNotFoundException{
         EventFields eventFields = eventFieldsRepository.findById(eventId)
